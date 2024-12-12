@@ -1,7 +1,7 @@
 import mysql.connector as mysql
 from tabulate import tabulate
 
-mydb = mysql.connect(host='localhost',user='root',password='1955',database='CSpro')
+mydb = mysql.connect(host='localhost',user='root',password='Aadi2007',database='aadi')
 
 if mydb.is_connected():
     print('done!!!')
@@ -307,20 +307,24 @@ def readtable():
                     ColNames.append(row[0])
                 print(f"This are the columns {ColNames}")
                 W= int(input('Enter the option:'))
-                S = input("Enter the column names that should be print('ALL',<any column-name>):")
+                S = input("Enter the column names that should be print(ALL(*),<any column-name>):")
                 L=[]
-                if S.upper()=='ALL':
+                if S.upper()=='*':
                     cur.execute(f"DESCRIBE {T}")
                     ro = cur.fetchall()
                     for row in ro:
                         L.append(row[0])
                 else:
+                    cur.execute(f"DESCRIBE {T}")
+                    ro = cur.fetchall()
+                    for row in ro:
+                        L.append(row[0])
                     R=[]
-                    for i in S:
+                    v=S.partition(',')
+                    for i in v:
                         if i in L:
                             R.append(i)
                     L=R        
-
 
                 if W==1:
                     col = input("enter <column name In (values)> format:")
@@ -328,10 +332,38 @@ def readtable():
                     re = cur.fetchall()
                     tablure(L,re)
 
+                elif W==2:
+                    col2 = input("enter <column name BETWEEN values> format:")
+                    cur.execute(f"SELECT {S} FROM {T} WHERE {col2}")
+                    re2 = cur.fetchall()
+                    tablure(L,re2)
+
+                elif W==3:
+                    col3 = input("enter <column name LIKE values> format:")
+                    cur.execute(f"SELECT {S} FROM {T} WHERE {col3}")
+                    re3 = cur.fetchall()
+                    tablure(L,re3)
+
+                elif W==4:
+                    g=input("Is there any where statement?(y/n):")
+                    if g=='y':
+                        we = input("Enter the where statement:")
+                        ro = input("Enter the <column-name>:")
+                        a = input("Enter for assending(asc) or dessending(desc):")
+                        cur.execute(f"SELECT {S} FROM {T} WHERE {we} ORDER BY {ro} {a}")
+                        re4 = cur.fetchall()
+                        tablure(L,re4)
+                    else:
+                        ro1 = input("Enter the <column-name>:")
+                        a1 = input("Enter for assending(asc) or dessending(desc):")
+                        cur.execute(f"SELECT {S} FROM {T} ORDER BY {ro1} {a1}")
+                        re5 = cur.fetchall()
+                        tablure(L,re5)
 
             else:
                 print("DO it AGain!")
-                delettable()
+                readtable()
+
         else:
             print('Table not exist!!')
             cur.execute("SHOW TABLES")
