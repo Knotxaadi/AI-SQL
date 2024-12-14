@@ -1,7 +1,10 @@
 import os
 import eel
+from engine.features import *
 
 eel.init('www')
+
+playassistantsound()
 
 os.system('start msedge.exe --app="http://127.0.0.1:3000/charlie/www/index.html"')
 
