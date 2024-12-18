@@ -335,4 +335,5 @@ $(function() {
             radius_sp = ui.value;
         }
     });
+
 });

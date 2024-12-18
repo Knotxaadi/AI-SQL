@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PyWebview Example</title>
+</head>
+
+<body>
+    <h1 id="message">Waiting for Python to send a message...</h1>
+
+    <script type="text/javascript">
+        // Ensure pywebview API is loaded when window is loaded
+        window.onload = function() {
+            pywebview.api.get_message().then(function(message) {
+                document.getElementById('message').innerText = message;
+            }).catch(function(error) {
+                console.error("Error in calling Python function:", error);
+            });
+        }
+    </script>
+</body>
+
+</html>
