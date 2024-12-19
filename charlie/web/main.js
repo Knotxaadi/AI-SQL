@@ -4,10 +4,12 @@ $(document).ready(function() {
         loop: true,
         sync: true,
         in: {
-            effect: "fadeInUp"
+            effect: "fadeInUp",
+            sync: true
         },
         out: {
-            effect: "fadeOutDown"
+            effect: "fadeOutDown",
+            sync:true
         }
     })
 
@@ -35,10 +37,9 @@ $(document).ready(function() {
     })
 
     $('#MicBtn ').click(function() {
-
         $("#Oval").attr("hidden", true);
         $("#SiriWave").attr("hidden", false);
-        eel.playassistantsound();
+        window.pywebview.api.hello();
 
     });
 

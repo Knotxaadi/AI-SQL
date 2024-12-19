@@ -1,12 +1,14 @@
 import webview
 
-# Python function that will be called by JavaScript
-def get_message():
-    return "Hello from Python automatically!"
+# Function to change background color
+def change_background_color():
+    return "background-color: blue;"
 
-# Create the webview window and expose the Python function to JavaScript
-window = webview.create_window("PyWebview Example", "index.html", 
-                               js_api={"get_message": get_message})
+# Create a simple webview window
+window = webview.create_window('Simple JS-Python Interaction', 'index.html')
 
-# Start the webview application
+# Expose the Python function to JavaScript
+window.expose(change_background_color)
+
+# Start the webview
 webview.start()

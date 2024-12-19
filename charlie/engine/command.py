@@ -1,19 +1,17 @@
 import pyttsx3
 import speech_recognition as sr
 import pyaudio
-import eel
 
 def speak(text):
-    
-    engine = pyttsx3.init('sapi5')
-    
-    voices = engine.getProperty('voices')
-    engine.setProperty('voice', voices[0].id)
-    engine.setProperty('rate', 140)
-    engine.say(text)
-    engine.runAndWait()
+        engine = pyttsx3.init('sapi5')
+        
+        voices = engine.getProperty('voices')
+        engine.setProperty('voice', voices[0].id)
+        engine.setProperty('rate', 140)
+        engine.say(text)
+        engine.runAndWait()
 
-@eel.expose
+
 def takecommand():
     recog = sr.Recognizer()
 
@@ -30,9 +28,10 @@ def takecommand():
         print(f'User said: {query}')
 
     except Exception as e:
-        return ""
+        return "e"
 
     return query.lower()
+
 
 text = takecommand()
 
