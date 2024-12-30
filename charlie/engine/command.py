@@ -1,38 +1,19 @@
-import pyttsx3
-import speech_recognition as sr
-import pyaudio
-
-def speak(text):
-        engine = pyttsx3.init('sapi5')
-        
-        voices = engine.getProperty('voices')
-        engine.setProperty('voice', voices[0].id)
-        engine.setProperty('rate', 140)
-        engine.say(text)
-        engine.runAndWait()
 
 
-def takecommand():
-    recog = sr.Recognizer()
-
-    with sr.Microphone() as source:
-        print("Listening...")
-        recog.pause_threshold=1
-        recog.adjust_for_ambient_noise(source)
-
-        audio = recog.listen(source, 10, 6)
-
-    try:
-        print("recognizing...")
-        query = recog.recognize_google(audio , language='en-in')
-        print(f'User said: {query}')
-
-    except Exception as e:
-        return "e"
-
-    return query.lower()
+tablec = ['make','create','draft','generate','build','construct','form','produce','develop','design','forge','invent',
+          'establish','set up','assemble']
+tabled = ['delete','remove','erase','clear','discard','eliminate','cancel','cut','omit','exclude','expunge','purge',
+          'rub out']
 
 
-text = takecommand()
 
-speak(text)
+
+
+def commando(query):
+    for word in tablec:
+        if word in query:
+            return 'Creating a new file'
+    for word in tabled:
+        if word in query:
+            return 'Deleting the file'
+    return 'Sorry, I am not able to understand what you are saying.'

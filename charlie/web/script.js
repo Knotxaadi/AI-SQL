@@ -72,8 +72,8 @@ function canvasApp() {
 
         //particle color
         r = 0;
-        g = 72;
-        b = 255;
+        g = 62;
+        b = 265;
 
         rgbString = "rgba(" + r + "," + g + "," + b + ","; //partial string for color which will be completed by appending alpha value.
         particleAlpha = 1; //maximum alpha
@@ -109,7 +109,7 @@ function canvasApp() {
         //alpha values will lessen as particles move further back, causing depth-based darkening:
         zeroAlphaDepth = -750;
 
-        turnSpeed = 2 * Math.PI / 1200; //the sphere will rotate at this speed (one complete rotation every 1600 frames).
+        turnSpeed = 2 * Math.PI / 1500; //the sphere will rotate at this speed (one complete rotation every 1600 frames).
         turnAngle = 0; //initial angle
 
         timer = setInterval(onTimer, 10 / 24);

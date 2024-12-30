@@ -1,14 +1,13 @@
-import webview
+d = {}
 
-# Function to change background color
-def change_background_color():
-    return "background-color: blue;"
+for i in range(3):
+    c_name = input("Enter country name:")
+    cc_name = input("Enter captial:")
+    courency = input("Enter courency:")
+    d[c_name]=[cc_name,courency]
+    
 
-# Create a simple webview window
-window = webview.create_window('Simple JS-Python Interaction', 'index.html')
-
-# Expose the Python function to JavaScript
-window.expose(change_background_color)
-
-# Start the webview
-webview.start()
+for i in d:
+    print(f"| {i} | {d[i][0]} | {d[i][1]} |")
+    
+    

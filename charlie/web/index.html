@@ -43,9 +43,42 @@
                         <div class="text-center">
                             <div id="TextInput" class="d-flex">
                                 <input type="text" class="input-field" name="chatbox" id="chatbox" placeholder="Typehere">
+                                <button id="SendBtn" class="glow-on-hover" hidden><i class="bi bi-x-diamond-fill"></i></button>
                                 <button id="MicBtn" class="glow-on-hover"><i class="bi bi-mic"></i></button>
-                                <button id="ChatBtn" class="glow-on-hover"><i class="bi bi-chat-left"></i></button>
+                                <!-- <button id="ChatBtn" class="glow-on-hover"><i class="bi bi-chat-left"></i></button> -->
                                 <button id="SettingBtn" class="glow-on-hover"><i class="bi bi-sliders"></i></i></button>
+
+                            </div>
+                        </div>
+                        <div class="popup">
+
+                            <header>
+                                <span>Settings
+                                </span>
+                                <button id="close" class="glow-on-hover"><i class="bi bi-x"></i></button>
+                            </header>
+                            <div class="content">
+                                <p>Change the settings</p>
+                                <div class="user">
+                                    <p>Username:</p>
+                                    <p class="username">root</p>
+                                    <input type="text" name="user" id="username" placeholder="New UserName">
+                                </div>
+                                <div class="user">
+                                    <p>Host:</p>
+                                    <p class="host">localhost</p>
+                                    <input type=" text" name="username" id="username" placeholder="New Host">
+                                </div>
+                                <div class="user ">
+                                    <p>Password:</p>
+                                    <p class="password">aadi</p>
+                                    <input type="text" name="user " id="username" placeholder=" New Password ">
+                                </div>
+                                <div class="user">
+                                    <p>Database:</p>
+                                    <p class="database">aadi</p>
+                                    <input type="text" name="user " id="username" placeholder="New Database ">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -64,6 +97,8 @@
                                 <p class="text-start text-light mb-4 siri-message">Hello I am Charliee</p>
                                 <div id="siri-container"></div>
 
+
+                                
                             </div>
                         </div>
                     </div>
@@ -96,7 +131,7 @@
 
     <!-- lottie files -->
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-    <script type="text/javascript" src="/eel.js"></script>
+    <!-- <script type="text/javascript" src="/eel.js"></script> -->
     <script src="main.js"></script>
     <script src="controller.js"></script>
 

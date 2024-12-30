@@ -81,11 +81,11 @@ body {
 
 #TextInput {
     background-color: #181818a8;
-    border-color: blue;
+    border-color: rgb(160, 160, 201);
     box-shadow: 0 0 20px rgb(25, 0, 255), inset 0 0 0px rgb(25, 0, 255);
     border-radius: 8px;
     color: white;
-    padding: 3px 0px 3px 20px;
+    padding: 3px 3px 3px 20px;
     margin: 0px 20%;
 }
 
@@ -164,4 +164,68 @@ body {
     100% {
         background-position: 0 0;
     }
+}
+
+.popup {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    /* color: rgb(255, 255, 255); */
+    padding: 10px;
+    position: absolute;
+    left: 50%;
+    border-radius: 15px;
+    max-width: 380px;
+    width: 100%;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.32);
+    backdrop-filter: blur(6px);
+    top: -150%;
+    opacity: 0;
+    pointer-events: none;
+    transition: top 0s 2.0s ease-in-out, opacity 0.3s 0s ease-in-out, transform 0.3s 0s ease-in-out;
+}
+
+.popup.show {
+    top: 50%;
+    opacity: 1;
+    color: whitesmoke;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1.2);
+    transition: top 0s 2.0s ease-in-out, opacity 0.3s 0s ease-in-out, transform 0.3s 0s ease-in-out;
+}
+
+.popup header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header span {
+    font-size: 21px;
+    font-weight: 600;
+}
+
+header .close {
+    cursor: pointer;
+    height: 33px;
+    width: 33px;
+}
+
+.popup .content {
+    margin-top: 10px 0;
+    justify-content: space-evenly;
+}
+
+.content #username {
+    background-color: transparent;
+    border: 1px solid rgb(0, 0, 0);
+    width: 60%;
+    height: 20px;
+    outline: none;
+    color: rgb(255, 255, 255);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.content .user {
+    display: flex;
+    justify-content: space-evenly;
 }

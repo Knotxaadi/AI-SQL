@@ -1,12 +1,7 @@
-import soundfile as sf
-import sounddevice as sd
+from playsound import playsound
 
-# Read the audio file
-def playsound():
-    data, fs = sf.read("charlie\web\assests\audio\www_assets_audio_start_sound.mp3")
 
-    # Play the audio
-    sd.play(data, fs)
-    sd.wait()
-
-playsound()
+def playAssistantSound():
+    music_dir = "charlie/web/assests/audio/startsound.mp3"
+   # playsound(music_dir)
+    

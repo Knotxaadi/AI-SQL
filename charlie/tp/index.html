@@ -1,27 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Interaction</title>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
-        button { padding: 10px 20px; font-size: 18px; cursor: pointer; }
-    </style>
+    <title>Document</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <h1>Change Background Color</h1>
-    <button onclick="changeBackgroundColor()">Click Me!</button>
+
+    <button id="viewBtn">view Now</button>
+    <div class="popup">
+
+        <header>
+            <span>Settings
+            </span>
+            <button id="close" class="glow-on-hover"><i class="bi bi-x"></i></button>
+        </header>
+        <div class="content">
+            <p>Change the settings</p>
+            <div class="user">
+                <p>Username:</p>
+                <p class="username">root</p>
+                <input type="text" name="user" id="username" placeholder="New UserName">
+            </div>
+            <div class="user">
+                <p>Host:</p>
+                <p class="host">localhost</p>
+                <input type=" text" name="username" id="username" placeholder="New Host">
+            </div>
+            <div class="user ">
+                <p>Password:</p>
+                <p class="username">aadi</p>
+                <input type="text" name="user " id="username" placeholder=" New Password ">
+            </div>
+            <div class="user">
+                <p>Database:</p>
+                <p class="username">aadi</p>
+                <input type="text " name="user " id="username" placeholder="New Database ">
+            </div>
+        </div>
+    </div>
 
     <script>
-        
-        // Function to call Python function to change the background color
-        function changeBackgroundColor() {
-            window.pywebview.api.change_background_color().then(style => {
-            document.body.style = style;
-    });
-}
+        const viewBtn = document.querySelector('#viewBtn'),
+            popup = document.querySelector('.popup'),
+            close = popup.querySelector('#close');
 
+        viewBtn.onclick = () => {
+            popup.classList.toggle('show');
+        }
+
+        close.onclick = () => {
+            viewBtn.click();
+        }
     </script>
 </body>
+
 </html>
