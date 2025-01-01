@@ -1,64 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>Restaurant Website</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
-
-    <button id="viewBtn">view Now</button>
-    <div class="popup">
-
-        <header>
-            <span>Settings
-            </span>
-            <button id="close" class="glow-on-hover"><i class="bi bi-x"></i></button>
-        </header>
-        <div class="content">
-            <p>Change the settings</p>
-            <div class="user">
-                <p>Username:</p>
-                <p class="username">root</p>
-                <input type="text" name="user" id="username" placeholder="New UserName">
-            </div>
-            <div class="user">
-                <p>Host:</p>
-                <p class="host">localhost</p>
-                <input type=" text" name="username" id="username" placeholder="New Host">
-            </div>
-            <div class="user ">
-                <p>Password:</p>
-                <p class="username">aadi</p>
-                <input type="text" name="user " id="username" placeholder=" New Password ">
-            </div>
-            <div class="user">
-                <p>Database:</p>
-                <p class="username">aadi</p>
-                <input type="text " name="user " id="username" placeholder="New Database ">
+    <header class="hero">
+        <div class="container">
+            <nav>
+                <h1 class="logo">Your Restaurant</h1>
+                <ul class="nav-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#menu">Menu</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="hero-content">
+                <h2>Welcome to Your Restaurant</h2>
+                <p>Exquisite cuisine and a memorable dining experience.</p>
+                <a href="#menu" class="btn">View Menu</a>
             </div>
         </div>
-    </div>
-
-    <script>
-        const viewBtn = document.querySelector('#viewBtn'),
-            popup = document.querySelector('.popup'),
-            close = popup.querySelector('#close');
-
-        viewBtn.onclick = () => {
-            popup.classList.toggle('show');
-        }
-
-        close.onclick = () => {
-            viewBtn.click();
-        }
-    </script>
+    </header>
+    <section id="about" class="about">
+        <div class="container">
+            <h2>About Us</h2>
+            <p>Experience the finest dining with our specially curated menu and exceptional service.</p>
+            <img src="https://via.placeholder.com/600x400" alt="Restaurant Interior">
+        </div>
+    </section>
+    <section id="menu" class="menu">
+        <div class="container">
+            <h2>Our Menu</h2>
+            <div class="menu-items">
+                <div class="menu-item">
+                    <img src="https://via.placeholder.com/150" alt="Dish 1">
+                    <h3>Dish Name 1</h3>
+                    <p>$12.99</p>
+                </div>
+                <div class="menu-item">
+                    <img src="https://via.placeholder.com/150" alt="Dish 2">
+                    <h3>Dish Name 2</h3>
+                    <p>$14.99</p>
+                </div>
+                <div class="menu-item">
+                    <img src="https://via.placeholder.com/150" alt="Dish 3">
+                    <h3>Dish Name 3</h3>
+                    <p>$10.99</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <form action="#" method="POST">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Your Restaurant. All Rights Reserved.</p>
+        </div>
+    </footer>
 </body>
-
 </html>

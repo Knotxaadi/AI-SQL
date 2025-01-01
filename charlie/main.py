@@ -1,7 +1,7 @@
 import pyttsx3
 import speech_recognition as sr
 import webview
-from engine.features import *
+#from engine.features import *
 from engine.command import *
 import datetime
 
@@ -25,9 +25,9 @@ def takecommand():
             # Send message to JavaScript to indicate listening
             window.evaluate_js("DisplayMassage('Listening...')")
             
-            recog.pause_threshold = 0.7
+            recog.pause_threshold = 1
             recog.adjust_for_ambient_noise(source)
-            audio = recog.listen(source, 5, 5)
+            audio = recog.listen(source, 5, 8)
 
     
         print("recognizing...")
@@ -39,7 +39,7 @@ def takecommand():
         speak("Say that again please...")
         allCommand()
 
-    return query.lower()
+    return query
 
 def allCommand(message=1):
     
@@ -60,23 +60,24 @@ def allCommand(message=1):
             speak("Thank you Sir, Have a nice day.")
             window.evaluate_js("Showhood()")
         else:
-            a= commando(query)
+            a= generate_sql(query)
+            print(a)
             window.evaluate_js(f"DisplayMassage('{a}')")
             speak(a)
             allCommand()
         
-            
+             
     except Exception as e:
         print(e)
-        window.evaluate_js("DisplayMassage('Sorry, I am not able to understand what you are saying.')")
-        speak("Sorry, I am not able to understand what you are saying.")
-        window.evaluate_js("Showhood()")
+        window.evaluate_js("DisplayMassage('Sorry, I am not able to understand what you are saying!...')")
+        speak("Sorry, I am not able to understand what you are saying!!.... please say again")
+        allCommand()
 
 
-playAssistantSound()
+#playAssistantSound()
 # Create the webview window and expose Python functions to JavaScript
 window = webview.create_window('Simple JS-Python Interaction', 'web/index.html', width=900, height=800)
-window.expose(playAssistantSound, allCommand)
+window.expose(allCommand)
 
 # Start the webview
 webview.start()
