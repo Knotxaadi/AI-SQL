@@ -55,9 +55,8 @@ def assign_data_type(column):
     return u
             
 def generate_sql(query,cursor):
-        a = query.split()
-        print(a)
-    #try:
+    a = query.split()
+    try:
         #Create table
         for word in tablec:
             if word in a[:2]:
@@ -135,8 +134,6 @@ def generate_sql(query,cursor):
                 column = columnss(column)
                 column = ','.join(column)
                 L= column
-                print(column)
-                print(parts)
                 if "where" in parts[1]: 
                     table_name = parts[1].split("where")[0].strip()
                     condition = parts[1].split("where")[1].strip()
@@ -160,7 +157,6 @@ def generate_sql(query,cursor):
                         for row in a:
                             L.append(row[0])
                     print('no where clause')
-                print(sql_query)
                 cursor.execute(sql_query)
                 a = cursor.fetchall()
                 print(L)
@@ -205,8 +201,8 @@ def generate_sql(query,cursor):
                     sql_query = f"ALTER TABLE {table_name} CHANGE {column_part};"
                     cursor.execute(sql_query)
                     return f'Column {column_part} changed in {table_name} successfully'
-   # except:
-        #return 'Sorry, I am not able to understand what you are saying.'
+    except:
+        return 'Sorry, I am not able to understand what you are saying.'
 
 
 

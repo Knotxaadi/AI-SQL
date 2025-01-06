@@ -1,10 +1,11 @@
 import pyttsx3
 import speech_recognition as sr
 import webview
-#from engine.features import *
+from engine.features import *
 from engine.command import *
 import mysql.connector as mysql
 import tabulate
+import json
 
 mydb = mysql.connect(host='localhost',user='root',password='Aadi2007',database='aadi')
 
@@ -61,7 +62,7 @@ def allCommand(message=1):
         print(query)
         window.evaluate_js(f"DisplayMassage('You said: {query}')")
         
-    #try:    
+    try:    
         if 'goodbye' in query or 'thank you' in query or 'exit' in query or 'bye' in query:
             print('Thank you Sir, Have a nice day')
             window.evaluate_js("DisplayMassage('Thank you Sir, Have a nice day.')")
@@ -70,22 +71,22 @@ def allCommand(message=1):
         else:
             a= generate_sql(query,mycursor)
             print(a)
-            window.evaluate_js(f"DisplayMassage('{a}')")
+            window.evaluate_js(f"DisplayMassage('{json.dumps(a)}')")
             speak(a)
             allCommand()
         
              
-    #except Exception as e:
-        #print(e)
-        #window.evaluate_js("DisplayMassage('Sorry, I am not able to understand what you are saying!...')")
-        #speak("Sorry, I am not able to understand what you are saying!!.... please say again")
-        #allCommand()
+    except Exception as e:
+        print(e)
+        window.evaluate_js("DisplayMassage('Sorry, I am not able to understand what you are saying!...')")
+        speak("Sorry, I am not able to understand what you are saying!!.... please say again")
+        allCommand()
 
 
-#playAssistantSound()
+playAssistantSound()
 # Create the webview window and expose Python functions to JavaScript
 window = webview.create_window('Simple JS-Python Interaction', 'web/index.html', width=900, height=800)
-window.expose(allCommand)
+window.expose(allCommand,playAssistantSound)
 
 # Start the webview
 webview.start()
