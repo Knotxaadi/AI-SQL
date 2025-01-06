@@ -1,4 +1,4 @@
-
+from tabulate import tabulate
 
 tablec = ['make','create','draft','generate','build','construct','form','produce','develop','design','forge','invent',
           'establish','set up','assemble']
@@ -17,9 +17,6 @@ def columnss(parts):
             try:
                 if L[i] == 'name' ==L[0]:
                     colum.append(f'{L[i]}')
-                elif (L[i] != 'number' and L[i] != 'name' and L[i] !='no') and (L[i+1] == 'name' or L[i+1]== 'number' or L[i+1] == 'no'):
-                    colum.append(f'{L[i]}_{L[i+1]}')
-                    i+=1
                 elif L[i] == 'equal' and L[i+1] == 'to':
                     colum.append(f'=')
                     i+=1
@@ -29,12 +26,20 @@ def columnss(parts):
                 elif (L[i] == 'less' and L[i+1] == 'than') or (L[i] == 'smaller' and L[i+1] == 'than'):
                     colum.append(f'<')
                     i+=1
+                elif L[i] == 'all' or L[i] == 'every' or L[i] == 'each':
+                    colum.append(f'*')
+                elif (L[i] != 'number' and L[i] != 'name' and L[i] !='no') and (L[i+1] == 'name' or L[i+1]== 'number' or L[i+1] == 'no'):
+                    colum.append(f'{L[i]}_{L[i+1]}')
+                    i+=1
                 else:
                     colum.append(f'{L[i]}')
             except:
                 colum.append(f'{L[i]}')
             i+=1
     return colum
+
+def tablepri(Col,Row):
+    return(tabulate(Row,Col,tablefmt="simple_outline"))
 
 def assign_data_type(column):
     u = ''
@@ -49,10 +54,10 @@ def assign_data_type(column):
         i+=1
     return u
             
-def generate_sql(query):
-    a = query.split()
-    print(a)
-    try:
+def generate_sql(query,cursor):
+        a = query.split()
+        print(a)
+    #try:
         #Create table
         for word in tablec:
             if word in a[:2]:
@@ -69,7 +74,8 @@ def generate_sql(query):
                         column_definitions.append(f"{column} INT")
                     else:
                         column_definitions.append(f"{column} VARCHAR(255)")
-                return f"CREATE TABLE {table_name} ({', '.join(column_definitions)})"
+                cursor.execute(f"CREATE TABLE {table_name} ({', '.join(column_definitions)})")
+                return f'table {table_name} created successfully'
 
         #Insert into table
         for word in tableinsert:
@@ -88,8 +94,8 @@ def generate_sql(query):
                         values.append(f"{val}")  
 
                 sql_query = f"INSERT INTO {t_name} VALUES {tuple(values)}"
-                print(sql_query)
-                return f"INSERT INTO {t_name} VALUES ({', '.join(value)})"
+                cursor.execute(sql_query)
+                return f"Values inserted into {t_name} successfully"
 
         #Update table  
         for word in tableup:
@@ -103,8 +109,9 @@ def generate_sql(query):
                 where_part = columnss(where_part)
                 where_part = ''.join(where_part)
                 sql_query = f"UPDATE {table_name} SET {set_part} WHERE {where_part};"
-                return sql_query
-                        
+                cursor.execute(sql_query)
+                return f'Table {table_name} value {set_part} where {where_part} updated successfully'
+                              
         #Delete table
         for word in tabled: 
             if word in a[:2]:
@@ -117,31 +124,56 @@ def generate_sql(query):
                 condition = ''.join(condition)
                 print(condition)
                 sql_query = f"DELETE FROM {table_name} WHERE {condition};"
-                return sql_query
+                cursor.execute(sql_query)
+                return f"From Table {table_name} where {condition} deleted successfully"
         
         #Select table
         for word in tablese:
             if word in a[:2]:
                 parts = query.split("from")
-                print(parts)
                 column = parts[0].replace(word,"").strip()
                 column = columnss(column)
                 column = ','.join(column)
-                table_name = parts[1].split("where")[0].strip()
-                print(table_name)
-                condition = parts[1].split("where")[1].strip()
-                condition = columnss(condition)
-                condition = ''.join(condition)
-                print(condition)
-                sql_query = f"SELECT {column} FROM {table_name} WHERE {condition};"
-                return sql_query
-        
+                L= column
+                print(column)
+                print(parts)
+                if "where" in parts[1]: 
+                    table_name = parts[1].split("where")[0].strip()
+                    condition = parts[1].split("where")[1].strip()
+                    condition = columnss(condition)
+                    condition = ''.join(condition)
+                    sql_query = f"SELECT {column} FROM {table_name} WHERE {condition};"
+                    if column == '*':
+                        cursor.execute(f"DESCRIBE {table_name}")
+                        a = cursor.fetchall()
+                        L=[]
+                        for row in a:
+                            L.append(row[0])
+                    print('where clause')
+                else:
+                    table_name = parts[1].strip()
+                    sql_query = f"SELECT {column} FROM {table_name};"
+                    if column == '*':
+                        cursor.execute(f"DESCRIBE {table_name}")
+                        a = cursor.fetchall()
+                        L=[]
+                        for row in a:
+                            L.append(row[0])
+                    print('no where clause')
+                print(sql_query)
+                cursor.execute(sql_query)
+                a = cursor.fetchall()
+                print(L)
+                print(a)
+                re = tablepri(L,a)
+                print(re)
+                return re
+            
         #alter table
         for word in tableal:
             if word in a[:2]:
                 al = ['add','drop','modify','change']
-                parts = query.split("table")
-                print(parts)                
+                parts = query.split("table")                
                 for i in al:
                     if i in parts[1]:
                         table_name = parts[1].split(i)[0].strip()
@@ -151,24 +183,30 @@ def generate_sql(query):
                     column_part = assign_data_type(column_part)
                     #column_part = columnss(column_part)
                     sql_query = f"ALTER TABLE {table_name} ADD {column_part};"
-                    return sql_query
+                    cursor.execute(sql_query)
+                    return f'Column {column_part} added to {table_name} successfully'
+                
                 elif column_part[1] == 'drop':
                     column_part = column_part[3::]
                     sql_query = f"ALTER TABLE {table_name} DROP {column_part};"
-                    return sql_query
+                    cursor.execute(sql_query)
+                    return f'Column {column_part} dropped from {table_name} successfully'
+                
                 elif column_part[1] == 'modify':
                     column_part = column_part[3::]
                     column_part = assign_data_type(column_part)
                     sql_query = f"ALTER TABLE {table_name} MODIFY {column_part};"
-                    return sql_query
+                    cursor.execute(sql_query)
+                    return f'Column {column_part} modified in {table_name} successfully'
+                
                 elif column_part[1] == 'change':
                     column_part = column_part[3::]
-                    print(column_part)
                     column_part = assign_data_type(column_part)
                     sql_query = f"ALTER TABLE {table_name} CHANGE {column_part};"
-                    return sql_query
-    except:
-        return 'Sorry, I am not able to understand what you are saying.'
+                    cursor.execute(sql_query)
+                    return f'Column {column_part} changed in {table_name} successfully'
+   # except:
+        #return 'Sorry, I am not able to understand what you are saying.'
 
 
 
@@ -177,4 +215,5 @@ def generate_sql(query):
 #query= 'alter table info drop column address'
 #query = 'alter table info modify column address to integer'
 #query = 'alter table info change column address to home will character'
+#query = "select all from info where age equal to 17"
 #print(generate_sql(query))

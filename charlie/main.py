@@ -3,7 +3,15 @@ import speech_recognition as sr
 import webview
 #from engine.features import *
 from engine.command import *
-import datetime
+import mysql.connector as mysql
+import tabulate
+
+mydb = mysql.connect(host='localhost',user='root',password='Aadi2007',database='aadi')
+
+if mydb.is_connected():
+    print('done!!!')
+    
+mycursor = mydb.cursor()
 
 # Function to speak text using pyttsx3
 def speak(text):
@@ -53,25 +61,25 @@ def allCommand(message=1):
         print(query)
         window.evaluate_js(f"DisplayMassage('You said: {query}')")
         
-    try:    
+    #try:    
         if 'goodbye' in query or 'thank you' in query or 'exit' in query or 'bye' in query:
             print('Thank you Sir, Have a nice day')
             window.evaluate_js("DisplayMassage('Thank you Sir, Have a nice day.')")
             speak("Thank you Sir, Have a nice day.")
             window.evaluate_js("Showhood()")
         else:
-            a= generate_sql(query)
+            a= generate_sql(query,mycursor)
             print(a)
             window.evaluate_js(f"DisplayMassage('{a}')")
             speak(a)
             allCommand()
         
              
-    except Exception as e:
-        print(e)
-        window.evaluate_js("DisplayMassage('Sorry, I am not able to understand what you are saying!...')")
-        speak("Sorry, I am not able to understand what you are saying!!.... please say again")
-        allCommand()
+    #except Exception as e:
+        #print(e)
+        #window.evaluate_js("DisplayMassage('Sorry, I am not able to understand what you are saying!...')")
+        #speak("Sorry, I am not able to understand what you are saying!!.... please say again")
+        #allCommand()
 
 
 #playAssistantSound()
