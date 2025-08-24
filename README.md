@@ -22,7 +22,7 @@ This project aims to simplify database interactions for beginners by using AI to
 ---
 
 ### 🧑‍💻 Author
-**Aadi Rana** — 12th Grade CBSE | Passionate about code, logic, and real-world problem solving.  
+**Shashank Somwanshi** — 12th Grade CBSE | Passionate about code, logic, and real-world problem solving.  
 GitHub: [@KnotXaadi](https://github.com/Knotxaadi) | Twitter: [@KnotXaadi](https://twitter.com/KnotXaadi)
 
 ---
